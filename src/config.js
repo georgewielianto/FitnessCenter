@@ -20,6 +20,14 @@ const LoginSchema = new mongoose.Schema({
     }
 });
 
+const planSchema = new mongoose.Schema({
+    name: String,
+    price: Number,
+    quantity: Number
+});
+
+const Plan = mongoose.model("Plan", planSchema);
+
 const collection = new mongoose.model("Users", LoginSchema);
 
 module.exports = collection;

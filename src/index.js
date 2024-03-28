@@ -19,14 +19,12 @@ app.get("/", (req, res) => {
     res.render("login", { errorMessage: "" });
 });
 
-
-
 app.get("/signup", (req, res) => {
     res.render("signup", { errorMessage: "" });
 });
 
-app.get("/basic", (req,res) => {
-    res.render("basic");
+app.get("/plan", (req,res) => {
+    res.render("plan");
 });
 
 //register user
