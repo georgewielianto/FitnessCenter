@@ -635,3 +635,18 @@ nav {
     padding: 2rem;
   }
 }
+
+.username-header {
+  white-space: nowrap; 
+}
+
+@media screen and (max-width: 1000px) {
+  .username-header {
+    display: block; 
+    margin-bottom: 10px; 
+  }
+  .nav__header {
+    flex-direction: column; 
+    align-items: center; 
+  }
+}
