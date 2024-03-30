@@ -100,3 +100,18 @@ body {
     border-radius: 5px;
     cursor: pointer;
 }
+
+.logo-container {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.logo {
+    max-width: 200px; 
+}
+
+.company-name {
+    margin-top: 10px; 
+}
+
+
