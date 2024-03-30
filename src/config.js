@@ -20,14 +20,27 @@ const LoginSchema = new mongoose.Schema({
     }
 });
 
-const planSchema = new mongoose.Schema({
-    name: String,
-    price: Number,
-    quantity: Number
+const contactSchema = new mongoose.Schema({
+    nama: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    nomor_telepon: {
+        type: Number,
+        required: true
+    }
 });
 
-const Plan = mongoose.model("Plan", planSchema);
+
 
 const collection = new mongoose.model("Users", LoginSchema);
+
+const Contact = mongoose.model("Contact", contactSchema);
+
+module.exports = Contact;
 
 module.exports = collection;

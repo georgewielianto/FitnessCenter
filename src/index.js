@@ -28,6 +28,10 @@ app.get("/plan", (req,res) => {
     res.render("plan");
 });
 
+app.get("/add", (req,res) => {
+    res.render("add");
+});
+
 //register user
 app.post("/signup", async (req, res) => {
     const data = {

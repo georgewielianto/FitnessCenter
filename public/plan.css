@@ -110,8 +110,15 @@ body {
     max-width: 200px; 
 }
 
-.company-name {
+.logo-name {
     margin-top: 10px; 
 }
 
+.logo-name {
+    font-family: 'Arial', sans-serif; 
+    font-size: 32px; 
+    color: #333; 
+    text-transform: uppercase; 
+    letter-spacing: 2px; 
+}
 

@@ -1,0 +1,18 @@
+<!-- File: views/contacts.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacts</title>
+</head>
+<body>
+    <h1>Contact List</h1>
+    <ul>
+        <% contacts.forEach(contact => { %>
+            <li><%= contact.nama %> - <%= contact.email %> - <%= contact.nomor_telepon %></li>
+        <% }); %>
+    </ul>
+    <a href="/add-contact">Add Contact</a>
+</body>
+</html>
