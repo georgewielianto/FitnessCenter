@@ -1,18 +1,61 @@
-<!-- File: views/contacts.ejs -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contacts</title>
-</head>
-<body>
-    <h1>Contact List</h1>
-    <ul>
-        <% contacts.forEach(contact => { %>
-            <li><%= contact.nama %> - <%= contact.email %> - <%= contact.nomor_telepon %></li>
-        <% }); %>
-    </ul>
-    <a href="/add-contact">Add Contact</a>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact</title>
+    <link rel="stylesheet" href="/css/semantic.min.css" />
+    <link rel="stylesheet" href="/css/contact.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="ui menu">
+        <div class="ui container">
+          <div class="header item"><a href="/plan" class="link">Home</a></div>
+          <a class="item"> About Us </a>
+          <a class="item"> Jobs </a>
+          <a class="item"> Locations </a>
+        </div>
+      </div>
+
+      <br>
+      <br>
+      <br>
+      <div class="ui container">
+        <form action="/add" class="ui form" method="POST">
+            <div class="ui three fields">
+                <div class="field">
+                    <label for="name" class="ui header green">Enter Your Name</label>
+                    <input type="text" name="name">
+                </div>
+
+                <div class="field">
+                    <label for="phone" class="ui header green">Enter Your Phone Number</label>
+                    <input type="text" name="phone">
+                </div>
+                
+            </div>
+
+            <div class="ui fluid field">
+                <input type="submit" value="submit" class="ui button green fluid">
+            </div>
+        </form>
+
+
+        <br><br>
+        <table class="ui green table">
+            <thead>
+                <th>Name</th>
+                <th>Phone Number</th>
+            </thead>
+            <tbody>
+                <td>George</td>
+                <td>029129</td>
+            </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script src="/js/semantic.min.js"></script>
+  </body>
 </html>

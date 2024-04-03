@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const connect = mongoose.connect("mongodb://localhost:27017/Login");
+const bodyParser = require("body-parser");
 
 //cek koneksi database
 connect.then(() => {
@@ -17,30 +18,50 @@ const LoginSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    admin:{
+        type: Boolean,
+        default:false,
+        require:true
     }
 });
 
-const contactSchema = new mongoose.Schema({
+const ContactShema = new mongoose.Schema({
     nama: {
         type: String,
         required: true
     },
-    email: {
+    phone: {
+        type: Number,
+        required: true 
+    }
+    
+});
+
+const ClassesSchema = new mongoose.Schema({
+    title: {
         type: String,
         required: true
     },
-    nomor_telepon: {
-        type: Number,
+    description: {
+        type: String,
         required: true
     }
+    
 });
-
 
 
 const collection = new mongoose.model("Users", LoginSchema);
 
-const Contact = mongoose.model("Contact", contactSchema);
+const contact = new mongoose.model("Contact", ContactShema);
 
-module.exports = Contact;
+const classes = new mongoose.model("Classes", ClassesSchema);
 
-module.exports = collection;
+// module.exports = collection;
+
+module.exports = {
+    collection,
+    contact,
+    classes
+};
+

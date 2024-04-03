@@ -18,24 +18,38 @@ Rafel Sutra Dharma / 535220071 -->
       href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
     />
 
-    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
 
     <title>Power Fitness</title>
-    <link rel ="icon" type="image/x-icon" href="assets/logo.jpg">
+    <link rel="icon" type="image/x-icon" href="assets/logo.jpg" />
   </head>
   <body>
     <header class="header">
       <nav>
         <div class="nav__header">
           <div class="nav__logo">
-            <a href="#"><img src="assets/logo.jpg" alt="logo" />Power Fitness</a>
+            <a href="#"
+              ><img src="assets/logo.jpg" alt="logo" />Power Fitness</a
+            >
           </div>
 
           <% if (userName !== "") { %>
-            <p class="username-header">Hello, <%= userName %></p>
-        <% } else { %>
-            <p class="username-header"></p>
-        <% } %>
+          <div class="dropdown" id="dropdown">
+            <button class="username-header" id="dropdownBtn">
+              Hello, <%= userName %>
+            </button>
+            <div class="dropdown-content" id="dropdownContent">
+              <% if (admin) { %>
+                <a href="/admin">Edit Profile</a>
+            <% } %>
+            
+             
+              <a href="/login">Logout</a>
+            </div>
+          </div>
+          <% } else { %>
+          <p class="username-header"></p>
+          <% } %>
 
           <div class="nav__menu__btn" id="menu-btn">
             <span><i class="ri-menu-line"></i></span>
@@ -56,7 +70,9 @@ Rafel Sutra Dharma / 535220071 -->
         </div>
         <div class="header__content">
           <h4>There are no limits that can stop you</h4>
-          <h1 class="section__header">except the ones you place upon yourself!</h1>
+          <h1 class="section__header">
+            except the ones you place upon yourself!
+          </h1>
           <p>
             Unleash your potential and embark on a journey towards a stronger,
             fitter, and more confident you. Sign up for 'Make Your Body Shape'
@@ -183,10 +199,22 @@ Rafel Sutra Dharma / 535220071 -->
               you reach your peak physical performance.
             </p>
             <div class="trainer__socials">
-              <a href="https://www.facebook.com/mastercorbuzier" target="_blank"><i class="ri-facebook-fill"></i></a>
-              <a href="https://en.wikipedia.org/wiki/Deddy_Corbuzier" target="_blank"><i class="ri-google-fill"></i></a>
-              <a href="https://www.instagram.com/mastercorbuzier/" target="_blank"><i class="ri-instagram-line"></i></a>
-              <a href="https://twitter.com/corbuzier" target="_blank"><i class="ri-twitter-fill"></i></a>
+              <a href="https://www.facebook.com/mastercorbuzier" target="_blank"
+                ><i class="ri-facebook-fill"></i
+              ></a>
+              <a
+                href="https://en.wikipedia.org/wiki/Deddy_Corbuzier"
+                target="_blank"
+                ><i class="ri-google-fill"></i
+              ></a>
+              <a
+                href="https://www.instagram.com/mastercorbuzier/"
+                target="_blank"
+                ><i class="ri-instagram-line"></i
+              ></a>
+              <a href="https://twitter.com/corbuzier" target="_blank"
+                ><i class="ri-twitter-fill"></i
+              ></a>
             </div>
           </div>
         </div>
@@ -203,10 +231,20 @@ Rafel Sutra Dharma / 535220071 -->
               limits, boost metabolism, and torch calories.
             </p>
             <div class="trainer__socials">
-              <a href="https://www.facebook.com/profile.php?id=61555960751468" target="_blank"><i class="ri-facebook-fill"></i></a>
-              <a href="https://id.wikipedia.org/wiki/Ade_Rai" target="_blank"><i class="ri-google-fill"></i></a>
-              <a href="https://www.instagram.com/ade_rai/" target="_blank"><i class="ri-instagram-line"></i></a>
-              <a href="https://twitter.com/CerdasFitness" target="_blank"><i class="ri-twitter-fill"></i></a>
+              <a
+                href="https://www.facebook.com/profile.php?id=61555960751468"
+                target="_blank"
+                ><i class="ri-facebook-fill"></i
+              ></a>
+              <a href="https://id.wikipedia.org/wiki/Ade_Rai" target="_blank"
+                ><i class="ri-google-fill"></i
+              ></a>
+              <a href="https://www.instagram.com/ade_rai/" target="_blank"
+                ><i class="ri-instagram-line"></i
+              ></a>
+              <a href="https://twitter.com/CerdasFitness" target="_blank"
+                ><i class="ri-twitter-fill"></i
+              ></a>
             </div>
           </div>
         </div>
@@ -223,10 +261,20 @@ Rafel Sutra Dharma / 535220071 -->
               cultivating inner peace and mindfulness.
             </p>
             <div class="trainer__socials">
-              <a href="https://www.facebook.com/MVMariaVania" target="_blank"><i class="ri-facebook-fill"></i></a>
-              <a href="https://id.wikipedia.org/wiki/Maria_Vania" target="_blank"><i class="ri-google-fill"></i></a>
-              <a href="https://www.instagram.com/maria_vaniaa/" target="_blank"><i class="ri-instagram-line"></i></a>
-              <a href="https://twitter.com/Maria_Vaniaa" target="_blank"><i class="ri-twitter-fill"></i></a>
+              <a href="https://www.facebook.com/MVMariaVania" target="_blank"
+                ><i class="ri-facebook-fill"></i
+              ></a>
+              <a
+                href="https://id.wikipedia.org/wiki/Maria_Vania"
+                target="_blank"
+                ><i class="ri-google-fill"></i
+              ></a>
+              <a href="https://www.instagram.com/maria_vaniaa/" target="_blank"
+                ><i class="ri-instagram-line"></i
+              ></a>
+              <a href="https://twitter.com/Maria_Vaniaa" target="_blank"
+                ><i class="ri-twitter-fill"></i
+              ></a>
             </div>
           </div>
         </div>
@@ -273,8 +321,7 @@ Rafel Sutra Dharma / 535220071 -->
             <p>Smart workout plan</p>
             <p>At home workouts</p>
           </div>
-          <a href="/plan">
-          <button class="btn">Join Now</button></a>
+          <a href="/plan"> <button class="btn">Join Now</button></a>
         </div>
 
         <!-- monthly plan -->
@@ -295,8 +342,7 @@ Rafel Sutra Dharma / 535220071 -->
             <p>At home workouts</p>
             <p>Personal Training</p>
           </div>
-          <a href="/plan">
-            <button class="btn">Join Now</button></a>
+          <a href="/plan"> <button class="btn">Join Now</button></a>
         </div>
       </div>
     </section>
@@ -308,10 +354,9 @@ Rafel Sutra Dharma / 535220071 -->
         individuals achieve their fitness goals, and fostering a supportive
         environment for everyone who walks through our doors.
       </p>
-      
+
       <div class="swiper">
         <div class="swiper-wrapper">
-
           <!-- pelanggan 1 -->
           <div class="swiper-slide">
             <div class="client__card">
@@ -323,9 +368,7 @@ Rafel Sutra Dharma / 535220071 -->
                 <span><i class="ri-star-fill"></i></span>
                 <span><i class="ri-star-line"></i></span>
               </div>
-              <p>
-                Saya Rekomendasi untuk ngegym disini!!!
-              </p>
+              <p>Saya Rekomendasi untuk ngegym disini!!!</p>
               <h4>Jono</h4>
               <h5>Freelance</h5>
             </div>
@@ -343,7 +386,8 @@ Rafel Sutra Dharma / 535220071 -->
                 <span><i class="ri-star-half-fill"></i></span>
               </div>
               <p>
-                Saya sangat suka dan cocok untuk Ngegym disni karena trainernya hehehehe...
+                Saya sangat suka dan cocok untuk Ngegym disni karena trainernya
+                hehehehe...
               </p>
               <h4>Udin</h4>
               <h5>Pedagang kelontong</h5>
@@ -361,9 +405,7 @@ Rafel Sutra Dharma / 535220071 -->
                 <span><i class="ri-star-half-fill"></i></span>
                 <span><i class="ri-star-line"></i></span>
               </div>
-              <p>
-                Recommended supaya badan bagus!
-              </p>
+              <p>Recommended supaya badan bagus!</p>
               <h4>Joni</h4>
               <h5>Tiktoker</h5>
             </div>
@@ -381,7 +423,8 @@ Rafel Sutra Dharma / 535220071 -->
                 <span><i class="ri-star-fill"></i></span>
               </div>
               <p>
-                Saya sangat cocok untuk nge gym disini. Karena para trainer sangat baik dan saya bisa membangun relasi disini. :)
+                Saya sangat cocok untuk nge gym disini. Karena para trainer
+                sangat baik dan saya bisa membangun relasi disini. :)
               </p>
               <h4>David Handoyo</h4>
               <h5>Entrepreneur</h5>
@@ -395,7 +438,9 @@ Rafel Sutra Dharma / 535220071 -->
       <div class="section__container footer__container">
         <div class="footer__col">
           <div class="footer__logo">
-            <a href="#"><img src="assets/logo.jpg" alt="logo" />Power Fitness</a>
+            <a href="#"
+              ><img src="assets/logo.jpg" alt="logo" />Power Fitness</a
+            >
           </div>
           <p>
             Take the first step towards a healthier, stronger you with our
@@ -434,14 +479,11 @@ Rafel Sutra Dharma / 535220071 -->
           </div>
         </div>
       </div>
-      <div class="footer__bar">
-        Copyright © 2023. All rights reserved.
-      </div>
+      <div class="footer__bar">Copyright © 2023. All rights reserved.</div>
     </footer>
 
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-    <script src="main.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>
-
