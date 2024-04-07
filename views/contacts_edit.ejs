@@ -21,17 +21,18 @@
       <br>
       <br>
       <br>
+
       <div class="ui container">
-        <form action="/contacts" class="ui form" method="POST">
+        <form action="/contacts_edit/<%- contact._id %>" class="ui form" method="POST">
             <div class="ui three fields">
                 <div class="field">
                     <label for="nama" class="ui header green">Enter Your Name</label>
-                    <input type="text" name="nama">
+                    <input type="text" name="nama", placeholder="Enter Your Name", value="<%- contact.nama %>", id="nama">
                 </div>
 
                 <div class="field">
                     <label for="phone" class="ui header green">Enter Your Phone Number</label>
-                    <input type="text" name="phone">
+                    <input type="text" name="phone", placeholder="Enter Your Phone Number", value="<%- contact.phone %>", id="phone">
                 </div>
                 
             </div>
@@ -44,28 +45,7 @@
         <br>
         <br>
         <br>
-        <table class="ui green table">
-            <thead>
-                <th>Name</th>
-                <th>Phone Number</th>
-                <td>Edit</td>
-                <td>Delete</td>
-            </thead>
-            <tbody>
-             
-              <% contacts.forEach ((contact)=>{ %>
-                <tr>
-                  <td><%- contact.nama %></td>
-                  <td><%- contact.phone %></td>
-                  <td><a class="ui purple button" href="/contacts_edit/<%= contact._id %>" ><i class="edit outline icon"></i>Edit</a></td>
-
-                  <td><a class="ui red button" href="/delete/<%= contact._id %>" ><i class="minus icon"></i>Delete</a></td>
-                </tr>
-
-                <% }); %>
-            </tbody>
-
-        </table>
+        
       </div>
     </div>
 

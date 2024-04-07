@@ -2,7 +2,8 @@
 const express = require("express");
 const path = require("path");
 const bcrypt = require("bcrypt");
-const {collection, contact} = require("./config");
+const {collection, contact, classes} = require("./config");
+const bodyParser = require("body-parser");
 
 
 
@@ -10,10 +11,12 @@ const app = express();
 
 //convert data ke json format
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
 
+
+//GET
 // Route untuk halaman utama
 app.get("/", (req, res) => {
     res.render("login", { errorMessage: "" });
@@ -34,9 +37,51 @@ app.get("/plan", (req,res) => {
     res.render("plan");
 });
 
-app.get("/contacts", (req,res) => {
-    res.render("contacts");
+//contacts
+app.get("/contacts", async (req,res) => {
+    try {
+        const contactsData = await contact.find(); // Menunggu promise untuk diselesaikan
+        res.render("contacts", { contacts: contactsData }); // Mengirimkan data kontak ke template contacts.ejs
+    } catch (error) {
+        console.error("Failed to `fetch contacts:", error);
+        res.status(500).send( "Internal Server Error");
+    }
 });
+
+
+//contacts edit
+app.get("/contacts_edit/:id", (req, res, next) => {
+    console.log(req.params.id);
+    contact.findOneAndUpdate({_id: req.params.id}, req.body, {new: true})
+        .then(docs => {
+            if (docs) {
+                res.render("contacts_edit", {contact: docs});
+            } else {
+                console.log("Contact not found");
+                // Handle the case where the contact is not found
+            }
+        })
+        .catch(err => {
+            console.log("Error:", err);
+            // Handle other errors
+            res.status(500).send("Internal Server Error");
+        });
+});
+
+//Delete Contact
+app.get("/delete/:id", (req, res, next) => {
+    contact.findByIdAndDelete(req.params.id)
+        .then(docs => {
+            console.log("deleted successfully");
+            res.redirect("/contacts");
+        })
+        .catch(err => {
+            console.log("Something Went Wrong");
+            next(err);
+        });
+});
+
+
 
 app.get("/profile", (req,res) => {
     res.render("profile");
@@ -47,30 +92,73 @@ app.get("/admin", (req,res) => {
 });
 
 
+
+
+//POST
 //contact
-app.post('/add',async (req, res, next)=> {
+app.post("/contacts",async (req, res, )=> {
     // const name = req.body.name;
     // const phone = req.body.phone;
 
-    const {name, phone} = req.body;
+    const {nama, phone} = req.body;
 
-    console.log(name, phone);
+    console.log(nama, phone);
 
     try {
         const contactCon = new contact({
-            name,
-            phone
+            nama : nama,
+            phone: phone
         });
 
         await contactCon.save();
         console.log("Data recorded successfully");
-        res.redirect('/');``
-    } catch (error) {
+        res.redirect('/contacts');
+    } catch (error) {  
         console.log("Something went wrong:", error);
         // Lakukan penanganan kesalahan yang sesuai di sini
     }
 
 });
+
+//contact_edit
+app.post("/contacts_edit/:id", (req, res, next) => {
+    contact.findByIdAndUpdate(req.params.id, req.body)
+        .then(docs => {
+            res.redirect("/contacts");
+        })
+        .catch(err => {
+            console.log("something went wrong");
+            next(err);
+        });
+});
+
+
+
+
+//Admin - menambah kelas baru
+//menambah kelas baru
+app.post("/admin", async (req, res) => {
+    try {
+      const { title, description, imageUrl } = req.body;
+      
+      // Buat instance kelas baru menggunakan model Classes
+      const newClass = new classes({
+        title: title,
+        description: description,
+        imageUrl: imageUrl
+      });
+  
+      // Simpan kelas ke dalam database
+      await newClass.save();
+  
+      res.status(201).send("Class added successfully");
+    } catch (error) {
+      console.error("Error adding class:", error);
+      res.status(500).send("Error adding class");
+    }
+  });
+
+
 
 
 //register user
@@ -176,6 +264,7 @@ app.post("/profile/delete", async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 });
+
 
 
 
