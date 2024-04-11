@@ -2,7 +2,7 @@
 const express = require("express");
 const path = require("path");
 const bcrypt = require("bcrypt");
-const {collection, contact, classes} = require("./config");
+const {collection, contact, classes, plan} = require("./config");
 const bodyParser = require("body-parser");
 
 
@@ -91,15 +91,24 @@ app.get("/admin", (req,res) => {
     res.render("admin");
 });
 
+app.get("/cart", async (req, res) => {
+    try {
+        // Ambil semua kontak dari database
+        const contacts = await contact.find();
+        res.render("cart", { contact: contacts }); // Render halaman cart.ejs dengan data kontak
+    } catch (error) {
+        console.error("Error fetching contacts:", error);
+        res.status(500).send("Internal Server Error");
+    }
+
+});
+
 
 
 
 //POST
 //contact
 app.post("/contacts",async (req, res, )=> {
-    // const name = req.body.name;
-    // const phone = req.body.phone;
-
     const {nama, phone} = req.body;
 
     console.log(nama, phone);
@@ -115,7 +124,6 @@ app.post("/contacts",async (req, res, )=> {
         res.redirect('/contacts');
     } catch (error) {  
         console.log("Something went wrong:", error);
-        // Lakukan penanganan kesalahan yang sesuai di sini
     }
 
 });
@@ -131,6 +139,8 @@ app.post("/contacts_edit/:id", (req, res, next) => {
             next(err);
         });
 });
+
+//plan
 
 
 

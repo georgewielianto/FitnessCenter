@@ -1,43 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contact</title>
     <link rel="stylesheet" href="/css/semantic.min.css" />
     <link rel="stylesheet" href="/css/contact.css" />
-  </head>
-  <body>
-    <div class="wrapper">
-      <div class="ui menu">
-        <div class="ui container">
-          <div class="header item"><a href="/plan" class="link">Home</a></div>
-          <a class="item"> About Us </a>
-          <a class="item"> Jobs </a>
-          <a class="item"> Locations </a>
-        </div>
-      </div>
+</head>
+<body>
+<div class="wrapper">
+    <h1 class="title">Contacts info</h1>
+    <p class="subtitle">Add contacts who want to join the Gym Member</p>
 
-      <br>
-      <br>
-      <br>
-      <div class="ui container">
+    <br>
+    <br>
+    <br>
+    <div class="ui container">
+        <!-- Logo Home -->
+        <a href="/login" class="home-link">
+            <img src="/assets/home_logo.jpg" alt="Home" class="home-icon">
+        </a>
+
         <form action="/contacts" class="ui form" method="POST">
             <div class="ui three fields">
                 <div class="field">
                     <label for="nama" class="ui header green">Enter Your Name</label>
-                    <input type="text" name="nama">
+                    <input type="text" name="nama" required>
                 </div>
 
                 <div class="field">
                     <label for="phone" class="ui header green">Enter Your Phone Number</label>
-                    <input type="text" name="phone">
+                    <input type="text" name="phone" pattern="[0-9]{12,}" title="Phone number must be at least 12 digits" required oninvalid="this.setCustomValidity('Phone number must be at least 12 digits')" oninput="this.setCustomValidity('')">
                 </div>
                 
             </div>
 
             <div class="ui fluid field">
-                <input type="submit" value="submit" class="ui button green fluid">
+                <input type="submit" value="Add" class="ui button green fluid">
             </div>
         </form>
 
@@ -66,9 +65,12 @@
             </tbody>
 
         </table>
-      </div>
-    </div>
 
-    <script src="/js/semantic.min.js"></script>
-  </body>
+        <!-- Tombol Next -->
+        <a href="/cart" class="ui button blue">Next</a>
+    </div>
+</div>
+
+<script src="/js/semantic.min.js"></script>
+</body>
 </html>

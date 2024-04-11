@@ -54,6 +54,21 @@ const ClassesSchema = new mongoose.Schema({
     
 });
 
+const PlanSchema = new mongoose.Schema({
+    plan: {
+        type: String,
+        required: true
+    },
+    price: {
+        type: Number,
+        required: true
+    },
+    quantity: {
+        type: Number,
+        required: true
+    }
+})
+
 
 const collection = new mongoose.model("Users", LoginSchema);
 
@@ -61,11 +76,14 @@ const contact = new mongoose.model("Contact", ContactShema);
 
 const classes = new mongoose.model("Classes", ClassesSchema);
 
+const plan = new mongoose.model("Plan", PlanSchema);
+
 // module.exports = collection;
 
 module.exports = {
     collection,
     contact,
-    classes
+    classes,
+    plan
 };
 
