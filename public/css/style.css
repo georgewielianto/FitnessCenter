@@ -650,3 +650,30 @@ nav {
     align-items: center; 
   }
 }
+
+.username-header {
+  display: flex;
+  align-items: center;
+}
+
+.username-button {
+  background-color: transparent;
+  border: none;
+  color: #333;
+  font-weight: bold;
+  cursor: pointer;
+  margin-right: 10px; /* Jarak antara username dan link lainnya */
+}
+
+.profile-link,
+.logout-link {
+  color: #333;
+  text-decoration: none;
+  margin-right: 10px; /* Jarak antara link-edit dan link-logout */
+}
+
+.profile-link:hover,
+.logout-link:hover {
+  text-decoration: underline;
+}
+

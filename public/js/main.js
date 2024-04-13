@@ -79,27 +79,4 @@ const swiper = new Swiper(".swiper", {
 });
 
 
- // Function to toggle dropdown menu
- function toggleDropdown() {
-  const dropdownContent = document.getElementById("dropdownContent");
-  dropdownContent.classList.toggle("show");
-}
-
-// Add event listener to dropdown button
-document.getElementById("dropdownBtn").addEventListener("click", function(event) {
-  toggleDropdown();
-  event.stopPropagation(); // Prevent the event from bubbling up to the window
-});
-
-// Close the dropdown menu if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.username-header')) {
-      const dropdowns = document.getElementsByClassName("dropdown-content");
-      for (let i = 0; i < dropdowns.length; i++) {
-          const openDropdown = dropdowns[i];
-          if (openDropdown.classList.contains('show')) {
-              openDropdown.classList.remove('show');
-          }
-      }
-  }
-}
+ 

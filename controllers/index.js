@@ -2,8 +2,10 @@
 const express = require("express");
 const path = require("path");
 const bcrypt = require("bcrypt");
-const {collection, contact, classes, plan} = require("./config");
+const {collection, contact, classes, plan} = require("../utils/config");
 const bodyParser = require("body-parser");
+const session = require('express-session');
+const jwt = require("jsonwebtoken");
 
 
 
@@ -14,6 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
+
 
 
 //GET
@@ -58,7 +61,7 @@ app.get("/contacts_edit/:id", (req, res, next) => {
                 res.render("contacts_edit", {contact: docs});
             } else {
                 console.log("Contact not found");
-                // Handle the case where the contact is not found
+                // Handle t`he case where the contact is not found
             }
         })
         .catch(err => {
@@ -82,10 +85,11 @@ app.get("/delete/:id", (req, res, next) => {
 });
 
 
-
-app.get("/profile", (req,res) => {
-    res.render("profile");
+app.get("/profile", (req, res) => {
+    res.render("profile", { errorMessage: "" });
 });
+
+
 
 app.get("/admin", (req,res) => {
     res.render("admin");
@@ -95,7 +99,7 @@ app.get("/cart", async (req, res) => {
     try {
         // Ambil semua kontak dari database
         const contacts = await contact.find();
-        res.render("cart", { contact: contacts }); // Render halaman cart.ejs dengan data kontak
+        res.render("cart", {req: req, contact: contacts }); // Render halaman cart.ejs dengan data kontak
     } catch (error) {
         console.error("Error fetching contacts:", error);
         res.status(500).send("Internal Server Error");
@@ -107,6 +111,16 @@ app.get("/cart", async (req, res) => {
 
 
 //POST
+//plan
+// Pada server side
+app.post('/plan', (req, res) => {
+    const { name, price, quantity} = req.body;
+    req.session.plan = { name, price, quantity };
+    res.json({ success: true });
+});
+
+
+
 //contact
 app.post("/contacts",async (req, res, )=> {
     const {nama, phone} = req.body;
@@ -221,22 +235,6 @@ app.post("/login", async (req, res) => {
 });
 
 
-
-// Endpoint untuk menampilkan profil pengguna
-app.get("/profile", async (req, res) => {
-    try {
-        // Dapatkan data profil pengguna dari basis data
-        const user = await collection.findOne({ name: req.body.username });
-        if (!user) {
-            res.render("profile", { errorMessage: "User not found" });
-            return;
-        }
-        res.render("profile", { user }); // Melewatkan objek user ke halaman profile.ejs
-    } catch (error) {
-        console.error("Failed to fetch user profile:", error);
-        res.status(500).send("Internal Server Error");
-    }
-});
 
 
 // Endpoint untuk memperbarui nama pengguna

@@ -21,7 +21,13 @@
         <img src="assets/price-1.png" alt="Basic Plan">
         <div class="product-details">
             <h2 class="plan">Basic Plan</h2>
-            <p class="price">Rp. 150.000/month</p>
+            <% 
+            // Mengambil string harga
+            var priceString = "Rp. 150.000/month";
+            // Menghapus karakter non-digit dari string harga
+            var priceInt = parseInt(priceString.replace(/\D/g,''));
+            %>
+            <p class="price">Rp. <%= priceInt %>/month</p> 
             <p>Smart workout plan</p>
             <p>At home workouts</p>
             <div class="quantity">
@@ -39,7 +45,13 @@
         <img src="assets/price-2.png" alt="Basic Plan">
         <div class="product-details">
             <h2 class="plan">Weekly Plan</h2>
-            <p class="price">Rp. 300.000/month</p>
+            <% 
+            // Mengambil string harga
+            var priceString = "Rp. 3000.000/month";
+            // Menghapus karakter non-digit dari string harga
+            var priceInt = parseInt(priceString.replace(/\D/g,''));
+            %>
+            <p class="price">Rp. <%= priceInt %>/month</p> 
             <p>PRO Gyms</p>
             <p>Smart workout plan</p>
             <p>At home workouts</p>
@@ -58,7 +70,13 @@
         <img src="assets/price-3.png" alt="Basic Plan">
         <div class="product-details">
             <h2 class="plan">Monthly Plan</h2>
-            <p class="price">Rp. 450.000/month</p>
+            <% 
+            // Mengambil string harga
+            var priceString = "Rp. 450.000/month";
+            // Menghapus karakter non-digit dari string harga
+            var priceInt = parseInt(priceString.replace(/\D/g,''));
+            %>
+            <p class="price">Rp. <%= priceInt %>/month</p> 
             <p>Elite Gyms & Classes</p>
             <p>PRO Gyms</p>
             <p>Smart workout plan</p>

@@ -34,22 +34,18 @@ Rafel Sutra Dharma / 535220071 -->
           </div>
 
           <% if (userName !== "") { %>
-          <div class="dropdown" id="dropdown">
-            <button class="username-header" id="dropdownBtn">
-              Hello, <%= userName %>
-            </button>
-            <div class="dropdown-content" id="dropdownContent">
+            <div class="username-header">
+
+              <button class="username-button" onclick="window.location.href='/profile'">Hello, <%= userName %></button>
+
               <% if (admin) { %>
-                <a href="/admin">Edit Profile</a>
-            <% } %>
-            
-             
-              <a href="/login">Logout</a>
+                <a href="/admin" class="profile-link">Admin</a>
+              <% } %>
+              <a href="/login" class="logout-link">Logout</a>
             </div>
-          </div>
-          <% } else { %>
-          <p class="username-header"></p>
           <% } %>
+          
+          
 
           <div class="nav__menu__btn" id="menu-btn">
             <span><i class="ri-menu-line"></i></span>
