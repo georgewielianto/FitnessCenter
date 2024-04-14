@@ -87,3 +87,45 @@ module.exports = {
     plan
 };
 
+
+
+// Simpan rencana-rencana hanya jika belum ada di database
+plan.findOneAndUpdate(
+    { plan: "Basic Plan" }, // Kriteria pencarian
+    { $setOnInsert: { plan: "Basic Plan", price: 150000, quantity: 1 } }, // Data yang akan disimpan jika dokumen tidak ditemukan
+    { upsert: true } // Opsi upsert
+)
+.then(savedPlan => {
+    console.log('Rencana berhasil disimpan:', savedPlan);
+})
+.catch(error => {
+    console.error('Gagal menyimpan rencana:', error);
+});
+
+plan.findOneAndUpdate(
+    { plan: "Weekly Plan" }, // Kriteria pencarian
+    { $setOnInsert: { plan: "Weekly Plan", price: 300000, quantity: 1 } }, // Data yang akan disimpan jika dokumen tidak ditemukan
+    { upsert: true } // Opsi upsert
+)
+.then(savedPlan => {
+    console.log('Rencana berhasil disimpan:', savedPlan);
+})
+.catch(error => {
+    console.error('Gagal menyimpan rencana:', error);
+});
+
+plan.findOneAndUpdate(
+    { plan: "Monthly Plan" }, // Kriteria pencarian
+    { $setOnInsert: { plan: "Monthly Plan", price: 450000, quantity: 1 } }, // Data yang akan disimpan jika dokumen tidak ditemukan
+    { upsert: true } // Opsi upsert
+)
+.then(savedPlan => {
+    console.log('Rencana berhasil disimpan:', savedPlan);
+})
+.catch(error => {
+    console.error('Gagal menyimpan rencana:', error);
+});
+
+
+
+

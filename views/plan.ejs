@@ -1,102 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Plan</title>
-<link rel ="icon" type="image/x-icon" href="assets/logo.jpg">
-<link rel="stylesheet" href="css/plan.css">
-</head>
-<body>
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plan</title>
+    <link rel="icon" type="image/x-icon" href="assets/logo.jpg" />
+    <link rel="stylesheet" href="css/plan.css" />
+    <link rel="icon" type="image/x-icon" href="assets/logo.jpg" />
+  </head>
+  <body>
     <div class="logo-container">
-        <img src="assets/logo.jpg" alt="logo" class="logo" />
-        <p class="logo-name">Power Fitness</p>
+      <img src="assets/logo.jpg" alt="logo" class="logo" />
+      <p class="logo-name">Power Fitness</p>
     </div>
 
-<div class="container">
-    <!-- basic plan -->
-    <h1 data-sr="enter bottom over 1s and move 50px">Basic Plan</h1>
-    <div class="product" data-sr="enter bottom over 1s and move 50px">
-        <img src="assets/price-1.png" alt="Basic Plan">
+    <div class="container">
+    
+      <h1 data-sr="enter bottom over 1s and move 50px">Plans</h1>
+      <% plans.forEach(plan => { %>
+      <div class="product" data-sr="enter bottom over 1s and move 50px">
+        <img src="assets/price-<%= plan.__v %>.png" alt="<%= plan.plan %>" />
         <div class="product-details">
-            <h2 class="plan">Basic Plan</h2>
-            <% 
-            // Mengambil string harga
-            var priceString = "Rp. 150.000/month";
-            // Menghapus karakter non-digit dari string harga
-            var priceInt = parseInt(priceString.replace(/\D/g,''));
-            %>
-            <p class="price">Rp. <%= priceInt %>/month</p> 
-            <p>Smart workout plan</p>
-            <p>At home workouts</p>
-            <div class="quantity">
-                <label for="quantity">People:</label>
-                <input type="number" id="quantity" name="quantity" min="1" value="1">
-            </div>
-            <a href="/contacts">
-                <button class="btn">Join!</button></a>
+          <h2 class="plan"><%= plan.plan %></h2>
+          <p class="price">Rp. <%= plan.price %>/month</p>
+          <p><%= plan.description %></p>
+          <div class="quantity">
+            <label for="quantity">People:</label>
+            <input
+              type="number"
+              id="quantity"
+              name="quantity"
+              min="1"
+              value="1"
+            />
+          </div>
+          <form action="/plan" method="POST">
+        
+            <input type="hidden" name="planId" value="<%= plan._id %>" />
+            
+            <button type="submit" class="btn">Join!</button>
+        </form>
+
         </div>
+      </div>
+      <% }); %>
+
+      
     </div>
 
-    <!-- Weekly plan -->
-    <h1 data-sr="enter bottom over 1s and move 50px">Weekly Plan</h1>
-    <div class="product" data-sr="enter bottom over 1s and move 50px">
-        <img src="assets/price-2.png" alt="Basic Plan">
-        <div class="product-details">
-            <h2 class="plan">Weekly Plan</h2>
-            <% 
-            // Mengambil string harga
-            var priceString = "Rp. 3000.000/month";
-            // Menghapus karakter non-digit dari string harga
-            var priceInt = parseInt(priceString.replace(/\D/g,''));
-            %>
-            <p class="price">Rp. <%= priceInt %>/month</p> 
-            <p>PRO Gyms</p>
-            <p>Smart workout plan</p>
-            <p>At home workouts</p>
-            <div class="quantity">
-                <label for="quantity">People:</label>
-                <input type="number" id="quantity" name="quantity" min="1" value="1">
-            </div>
-            <a href="/contacts">
-                <button class="btn">Join!</button></a>
-        </div>
-    </div>
-
-    <!-- Monthly Plan -->
-    <h1 data-sr="enter bottom over 1s and move 50px">Monthly Plan</h1>
-    <div class="product" data-sr="enter bottom over 1s and move 50px">
-        <img src="assets/price-3.png" alt="Basic Plan">
-        <div class="product-details">
-            <h2 class="plan">Monthly Plan</h2>
-            <% 
-            // Mengambil string harga
-            var priceString = "Rp. 450.000/month";
-            // Menghapus karakter non-digit dari string harga
-            var priceInt = parseInt(priceString.replace(/\D/g,''));
-            %>
-            <p class="price">Rp. <%= priceInt %>/month</p> 
-            <p>Elite Gyms & Classes</p>
-            <p>PRO Gyms</p>
-            <p>Smart workout plan</p>
-            <p>At home workouts</p>
-            <p>Personal Training</p>
-            <div class="quantity">
-                <label for="quantity">People:</label>
-                <input type="number" id="quantity" name="quantity" min="1" value="1">
-            </div>
-            <a href="/contacts">
-                <button class="btn">Join!</button></a>
-        </div>
-    </div>
-
-
-</div>
-
-<script src="https://unpkg.com/scrollreveal"></script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-<script src="js/plan.js"></script>
-
-</body>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="js/plan.js"></script>
+  </body>
 </html>

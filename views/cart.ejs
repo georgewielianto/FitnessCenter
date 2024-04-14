@@ -6,16 +6,21 @@
     <title>Cart</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
     <link rel="stylesheet" href="/css/cart.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="icon" type="image/x-icon" href="assets/logo.jpg" />
+
 </head>
 <body>
     <div class="container">
-        <h1>Contact Info</h1>
+        <h1>CART</h1>
+
+        <h2>Contact Info</h2>
         <table class="ui green table">
             <thead>
                 <tr>
                     <th>Name</th>
                     <th>Phone Number</th>
-                   
                 </tr>
             </thead>
             <tbody>
@@ -25,6 +30,24 @@
                         <td><%- contact.phone %></td>
                     </tr>
                 <% }); %>
+            </tbody>
+        </table>
+
+        <h1>Plan</h1>
+        <table class="ui green table">
+            <thead>
+                <tr>
+                    <th>Plan</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><%= req.session.selectedPlan.plan %></td>
+                    <td>Rp. <%= req.session.selectedPlan.price %>/month</td>
+                    <td>1</td> <!-- Misalnya, jumlah selalu 1 karena hanya satu rencana yang dipilih -->
+                </tr>
             </tbody>
         </table>
     </div>
