@@ -28,13 +28,15 @@ app.use(session({
 // Middleware untuk memverifikasi token JWT
 const verifyToken = (req, res, next) => {
     const token = req.cookies.token; // Now req.cookies should be populated
-    if (!token) {
+    if (!token && req.path !== '/login') { // Tambahkan pengecualian untuk rute login
         return res.status(401).send("Unauthorized");
     }
     try {
-        // Verifikasi token
-        const decoded = jwt.verify(token, "your_secret_key");
-        req.user = decoded; // Simpan informasi pengguna yang di-decode dalam permintaan
+        if (token) { // Hanya verifikasi token jika ada
+            // Verifikasi token
+            const decoded = jwt.verify(token, "your_secret_key");
+            req.user = decoded; // Simpan informasi pengguna yang di-decode dalam permintaan
+        }
         next(); // Lanjutkan ke rute berikutnya
     } catch (error) {
         console.error("Token verification error:", error);
@@ -42,11 +44,23 @@ const verifyToken = (req, res, next) => {
     }
 };
 
+
 //GET
 // Route untuk halaman utama
 app.get("/", verifyToken, (req, res) => {
     res.render("login", { errorMessage: "" });
 });
+
+app.get("/index", verifyToken, (req, res) => {
+    console.log(req.user); // Periksa apakah req.user berisi informasi pengguna yang di-decode
+    res.render("index", { 
+        userName: req.user.username, 
+        isAdmin: req.user.isAdmin,
+        newUsername: req.session.newUsername // Tambahkan newUsername ke dalam objek data
+    });
+});
+
+
 
 app.get("/login", verifyToken, (req, res) => {
     res.render("login", { errorMessage: "" });
@@ -113,9 +127,17 @@ app.get("/delete/:id", (req, res, next) => {
         });
 });
 
-app.get("/profile", (req, res) => {
-    res.render("profile", { errorMessage: "" });
+
+app.get("/profile", verifyToken, (req, res) => {
+    res.render("profile", { 
+        userName: req.user ? req.user.username : "", 
+        errorMessage: "",
+        newUsername: req.session.newUsername // Tambahkan newUsername ke dalam objek data
+    });
 });
+
+
+
 
 app.get("/admin", (req, res) => {
     res.render("admin");
@@ -212,6 +234,8 @@ app.post("/admin", async (req, res) => {
     }
 });
 
+
+
 //register user
 app.post("/signup", async (req, res) => {
     const { username, password } = req.body;
@@ -227,7 +251,7 @@ app.post("/signup", async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // Buat pengguna baru
-        await collection.insertOne({ name: username, password: hashedPassword });
+        await collection.create({ name: username, password: hashedPassword });
 
         res.render("login", { errorMessage: "" });
     } catch (error) {
@@ -235,6 +259,8 @@ app.post("/signup", async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 });
+
+
 
 app.post("/login", async (req, res) => {
     const { username, password } = req.body;
@@ -252,55 +278,112 @@ app.post("/login", async (req, res) => {
             return res.render("login", { errorMessage: "Incorrect password" });
         }
 
+        const isAdmin = user.admin || false;
         // Buat token JWT
-        const token = jwt.sign({ username: user.name }, "your_secret_key");
+        const token = jwt.sign({ username: user.name, isAdmin: isAdmin }, "your_secret_key");
 
         // Simpan token di cookie
         res.cookie("token", token, { httpOnly: true });
 
-        res.render("index", { userName: user.name, admin: user.admin });
+        // Hapus newUsername dari sesi
+        delete req.session.newUsername;
+
+        // Perbarui newUsername di sesi dengan username yang baru
+        req.session.newUsername = user.name;
+
+        res.redirect("index");
     } catch (error) {
         console.error("Error logging in:", error);
         res.status(500).send("Internal Server Error");
     }
 });
 
+
 // Endpoint untuk memperbarui nama pengguna
 app.post("/profile/update-name", verifyToken, async (req, res) => {
     try {
-        const { username, newName } = req.body;
+        const { newName } = req.body;
+        const username = req.user.username;
+
+        // Cek apakah username baru sudah ada dalam database
+        const existingUser = await collection.findOne({ name: newName });
+        if (existingUser) {
+            return res.status(400).send("Username already exists");
+        }
+
+        // Lanjutkan dengan pembaruan nama pengguna jika username baru belum ada
         await collection.updateOne({ name: username }, { $set: { name: newName } });
-        res.redirect("/profile");
+
+        // Simpan nama pengguna yang baru di sesi
+        req.session.newUsername = newName;
+
+        
+        res.render("profile", { 
+            userName: newName, 
+            errorMessage: "", 
+            newUsername: newName // Sertakan newUsername dalam objek data
+        });
     } catch (error) {
         console.error("Failed to update username:", error);
         res.status(500).send("Internal Server Error");
     }
 });
 
+
+
+
+
+
 // Endpoint untuk memperbarui kata sandi pengguna
 app.post("/profile/update-password", verifyToken, async (req, res) => {
     try {
-        const { username, newPassword } = req.body;
+        const { newPassword } = req.body;
+        const username = req.user.username;
+
+        // Hash password baru
         const hashedPassword = await bcrypt.hash(newPassword, 10);
-        await collection.updateOne({ name: username }, { $set: { password: hashedPassword } });
-        res.redirect("/profile");
+        
+        // Update password di dalam database menggunakan findOneAndUpdate
+        await collection.findOneAndUpdate({ name: username }, { $set: { password: hashedPassword } });
+        
+        // Redirect ke halaman profile setelah berhasil memperbarui password
+        res.redirect("/profile?successMessage=Password%20successfully%20updated");
     } catch (error) {
         console.error("Failed to update password:", error);
         res.status(500).send("Internal Server Error");
     }
 });
 
+
+
+
 // Endpoint untuk menghapus profil pengguna
 app.post("/profile/delete", verifyToken, async (req, res) => {
     try {
-        const { username } = req.body;
-        await collection.deleteOne({ name: username });
-        res.redirect("/login"); // Redirect ke halaman login setelah penghapusan profil
+        const { username } = req.user; // Menggunakan informasi pengguna yang sudah disimpan di req.user
+
+        // Hapus pengguna dari database
+        const deletedUser = await collection.deleteOne({ name: username });
+
+        // Periksa apakah pengguna berhasil dihapus
+        if (deletedUser.deletedCount === 1) {
+            // Hapus cookie token untuk logout pengguna
+            res.clearCookie("token");
+            // Redirect ke halaman login setelah penghapusan profil
+            return res.redirect("/login");
+        } else {
+            // Jika pengguna tidak ditemukan dalam database
+            return res.status(404).send("User not found");
+        }
     } catch (error) {
         console.error("Failed to delete user profile:", error);
         res.status(500).send("Internal Server Error");
     }
 });
+
+
+
+
 
 const port = 5001;
 app.listen(port, () => {

@@ -36,9 +36,16 @@ Rafel Sutra Dharma / 535220071 -->
           <% if (userName !== "") { %>
             <div class="username-header">
 
-              <button class="username-button" onclick="window.location.href='/profile'">Hello, <%= userName %></button>
+              <div>
+                <% if(newUsername) { %>
+                  <button class="username-button" onclick="window.location.href='/profile'">Welcome back, <%= newUsername %>! .</button>
+                <% } else { %>
+                    <button class="username-button" onclick="window.location.href='/profile'">Welcome, <%= userName %>!</button>
+                <% } %>
+            </div>
+            
 
-              <% if (admin) { %>
+              <% if (isAdmin) { %>
                 <a href="/admin" class="profile-link">Admin</a>
               <% } %>
               <a href="/login" class="logout-link">Logout</a>

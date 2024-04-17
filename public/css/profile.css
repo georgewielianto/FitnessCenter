@@ -1,6 +1,6 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f9fa;
     margin: 0;
     padding: 0;
 }
@@ -11,7 +11,7 @@ body {
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 .container h2 {
@@ -28,14 +28,9 @@ label {
     color: #555;
 }
 
-p {
-    margin: 0;
-    color: #666;
-}
-
 input[type="text"],
 input[type="password"] {
-    width: calc(100% - 22px); /* Penyesuaian lebar input */
+    width: calc(100% - 22px);
     padding: 10px;
     font-size: 16px;
     margin-top: 5px;
@@ -52,6 +47,7 @@ button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
@@ -62,3 +58,27 @@ button:hover {
     color: red;
     margin-top: 5px;
 }
+
+a {
+    text-decoration: none;
+    color: #007bff;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #0056b3;
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    border: none;
+    border-radius: 5px;
+    z-index: 9999;
+}
+
