@@ -42,3 +42,7 @@ body {
   .btn:hover {
     background-color: #45a049;
   }
+
+  btn{
+    background-color: asdf;
+  }
