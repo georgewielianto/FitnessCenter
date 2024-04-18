@@ -1,4 +1,3 @@
-<!-- profile.ejs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +10,9 @@
 <body>
     <div class="container">
         <h2>User Profile</h2>
+        <div class="back-button">
+            <a href="/index"><button>Back</button></a>
+        </div>
         <!-- Add JavaScript code to display the success message if present -->
         <script>
             const urlParams = new URLSearchParams(window.location.search);
@@ -42,7 +44,6 @@
         <form action="/profile/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete your profile? This action cannot be undone.');">
             <button type="submit" style="background-color: red;">Delete Profile</button>
         </form>
-        <a href="/index"><button>Back to Index</button></a>
         <% if(errorMessage) { %>
             <p class="error-message"><%= errorMessage %></p>
         <% } %>

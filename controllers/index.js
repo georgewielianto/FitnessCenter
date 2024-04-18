@@ -333,7 +333,6 @@ app.post("/profile/update-name", verifyToken, async (req, res) => {
 
 
 
-
 // Endpoint untuk memperbarui kata sandi pengguna
 app.post("/profile/update-password", verifyToken, async (req, res) => {
     try {
