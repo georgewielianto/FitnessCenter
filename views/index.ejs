@@ -137,50 +137,39 @@ Rafel Sutra Dharma / 535220071 -->
       </div>
     </section>
 
-    <section class="section__container class__container" id="class">
-      <h2 class="section__header">Our Classes</h2>
-      <p class="section__description">
-        Discover a diverse range of exhilarating classes at our gym designed to
-        cater to all fitness levels and interests. Whether you're a seasoned
-        athlete or just starting your fitness journey, our classes offer
-        something for everyone.
-      </p>
-      
-      <div class="class__grid">
-        <div class="class__card">
-          <img src="assets/dot-bg.png" alt="bg" class="class__bg" />
-          <img src="assets/class-1.jpg" alt="class" />
-          <div class="class__content">
-            <h4>Strength Training</h4>
-            <p>Resistance Training</p>
-          </div>
-        </div>
-        <div class="class__card">
-          <img src="assets/dot-bg.png" alt="bg" class="class__bg" />
-          <img src="assets/class-2.jpg" alt="class" />
-          <div class="class__content">
-            <h4>Flexibility & Mobility</h4>
-            <p>Yoga & Pilates</p>
-          </div>
-        </div>
-        <div class="class__card">
-          <img src="assets/dot-bg.png" alt="bg" class="class__bg" />
-          <img src="assets/class-3.jpg" alt="class" />
-          <div class="class__content">
-            <h4>HIIT</h4>
-            <p>Circuit Training</p>
-          </div>
-        </div>
-        <div class="class__card">
-          <img src="assets/dot-bg.png" alt="bg" class="class__bg" />
-          <img src="assets/class-4.jpg" alt="class" />
-          <div class="class__content">
-            <h4>Group Fitness</h4>
-            <p>Zumba or Dance</p>
-          </div>
-        </div>
-      </div>
-    </section>
+
+<section class="section__container class__container" id="class">
+  <h2 class="section__header">Our Classes</h2>
+  <p class="section__description">
+    Discover a diverse range of exhilarating classes at our gym designed to
+    cater to all fitness levels and interests. Whether you're a seasoned
+    athlete or just starting your fitness journey, our classes offer
+    something for everyone.
+  </p>
+
+  <div class="class__grid">
+   
+<% classes.forEach(function(cls) { %>
+  <div class="class__card">
+    <!-- Informasi kelas -->
+    <h4><%= cls.title %></h4>
+    <p><%= cls.description %></p>
+    <img src="<%= cls.imageUrl %>" alt="class" />
+    
+    <!-- Tombol hapus kelas -->
+    <form action="/classes/<%= cls._id %>" method="POST">
+      <input type="hidden" name="_method" value="DELETE">
+      <% if (isAdmin) { %>
+      <button type="submit">Delete</button>
+      <% } %>
+    </form>
+  </div>
+<% }); %>
+
+  </div>
+</section>
+
+
 
     <section class="section__container trainer__container" id="trainer">
       <h2 class="section__header">Our Trainers</h2>

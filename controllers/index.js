@@ -7,6 +7,8 @@ const bodyParser = require("body-parser");
 const session = require('express-session');
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
+const methodOverride = require("method-override");
+
 
 
 const app = express();
@@ -17,6 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
 app.use(cookieParser());
+app.use(methodOverride("_method")); 
 
 // Middleware sesi
 app.use(session({
@@ -45,20 +48,30 @@ const verifyToken = (req, res, next) => {
 };
 
 
+
 //GET
 // Route untuk halaman utama
 app.get("/", verifyToken, (req, res) => {
     res.render("login", { errorMessage: "" });
 });
 
-app.get("/index", verifyToken, (req, res) => {
-    console.log(req.user); // Periksa apakah req.user berisi informasi pengguna yang di-decode
-    res.render("index", { 
-        userName: req.user.username, 
-        isAdmin: req.user.isAdmin,
-        newUsername: req.session.newUsername // Tambahkan newUsername ke dalam objek data
-    });
+// Assuming `classesData` contains the classes data fetched from your database
+app.get("/index", verifyToken, async (req, res) => {
+    try {
+        console.log(req.user); // Periksa apakah req.user berisi informasi pengguna yang di-decode
+        const classesData = await classes.find(); // Fetch classes data from the database
+        res.render("index", { 
+            userName: req.user.username, 
+            isAdmin: req.user.isAdmin,
+            newUsername: req.session.newUsername,
+            classes: classesData // Pass the classes data to the template
+        });
+    } catch (error) {
+        console.error('Error fetching classes:', error);
+        res.status(500).send('Internal Server Error');
+    }
 });
+
 
 
 
@@ -233,6 +246,22 @@ app.post("/admin", async (req, res) => {
         res.status(500).send("Error adding class");
     }
 });
+
+// Endpoint untuk menghapus kelas berdasarkan ID
+app.post("/classes/:id", async (req, res) => {
+    try {
+        const deletedClass = await classes.findByIdAndDelete(req.params.id);
+        if (!deletedClass) {
+            return res.status(404).send("Class not found");
+        }
+        res.status(200).send("Class deleted successfully");
+    } catch (error) {
+        console.error("Error deleting class:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+
 
 
 
