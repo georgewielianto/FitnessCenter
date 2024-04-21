@@ -58,7 +58,6 @@ app.get("/", verifyToken, (req, res) => {
 // Assuming `classesData` contains the classes data fetched from your database
 app.get("/index", verifyToken, async (req, res) => {
     try {
-        console.log(req.user); // Periksa apakah req.user berisi informasi pengguna yang di-decode
         const classesData = await classes.find(); // Fetch classes data from the database
         res.render("index", { 
             userName: req.user.username, 
@@ -334,29 +333,33 @@ app.post("/profile/update-name", verifyToken, async (req, res) => {
         const { newName } = req.body;
         const username = req.user.username;
 
-        // Cek apakah username baru sudah ada dalam database
+        // Check if the new username already exists in the database
         const existingUser = await collection.findOne({ name: newName });
         if (existingUser) {
-            return res.status(400).send("Username already exists");
+            return res.render("profile", { 
+                userName: username, 
+                errorMessage: "Username already exists, pick another Username!!!", 
+                newUsername: req.session.newUsername 
+            });
         }
 
-        // Lanjutkan dengan pembaruan nama pengguna jika username baru belum ada
+        // Continue with updating the username if the new username doesn't exist
         await collection.updateOne({ name: username }, { $set: { name: newName } });
 
-        // Simpan nama pengguna yang baru di sesi
+        // Save the new username in the session
         req.session.newUsername = newName;
 
-        
         res.render("profile", { 
             userName: newName, 
             errorMessage: "", 
-            newUsername: newName // Sertakan newUsername dalam objek data
+            newUsername: newName 
         });
     } catch (error) {
         console.error("Failed to update username:", error);
         res.status(500).send("Internal Server Error");
     }
 });
+
 
 
 
