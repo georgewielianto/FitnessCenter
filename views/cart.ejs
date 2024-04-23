@@ -6,6 +6,7 @@
     <title>Cart</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
     <link rel="stylesheet" href="/css/cart.css">
+
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
     <link rel="icon" type="image/x-icon" href="assets/logo.jpg" />
@@ -47,10 +48,27 @@
                 <tr>
                     <td><%= req.session.selectedPlan.plan %></td>
                     <td>Rp. <%= req.session.selectedPlan.price %>/month</td>
-                    <td>1</td> <!-- Misalnya, jumlah selalu 1 karena hanya satu rencana yang dipilih -->
+                    <td>1</td> 
                 </tr>
             </tbody>
         </table>
+        <p class="discount-message">Screenshot this page if you fill 3 contacts. And show to our staff to get 15% discount!!!</p>
+
+        <button class="finish-button" onclick="finishCart()">Finish</button>
     </div>
+
+    <footer>
+        <div class="footer__bar">Copyright © 2023. All rights reserved.</div>
+    </footer>    
+
+    <script>
+        function finishCart() {
+          
+            alert('Thank you for your purchase!');
+           
+            window.location.href = '/index';
+        }
+    </script>
+
 </body>
 </html>

@@ -24,16 +24,7 @@
           <h2 class="plan"><%= plan.plan %></h2>
           <p class="price">Rp. <%= plan.price %>/month</p>
           <p><%= plan.description %></p>
-          <div class="quantity">
-            <label for="quantity">People:</label>
-            <input
-              type="number"
-              id="quantity"
-              name="quantity"
-              min="1"
-              value="1"
-            />
-          </div>
+          
           <form action="/plan" method="POST">
         
             <input type="hidden" name="planId" value="<%= plan._id %>" />

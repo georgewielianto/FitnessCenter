@@ -26,3 +26,15 @@ th, td {
     border-bottom: 1px solid #ddd;
     text-align: left;
 }
+
+.discount-message {
+    text-align: center; /* Untuk menengahkan teks secara horizontal */
+}
+
+
+.footer__bar {
+    padding: 1rem;
+    font-size: 0.8rem;
+    color: var(--text-light);
+    text-align: center;
+  }

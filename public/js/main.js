@@ -78,5 +78,11 @@ const swiper = new Swiper(".swiper", {
   spaceBetween: 20,
 });
 
+const urlParams = new URLSearchParams(window.location.search);
+            const successMessage = urlParams.get('successMessage');
+            if (successMessage) {
+                alert(successMessage); 
+            }
+
 
  

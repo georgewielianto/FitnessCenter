@@ -18,7 +18,7 @@
             const urlParams = new URLSearchParams(window.location.search);
             const successMessage = urlParams.get('successMessage');
             if (successMessage) {
-                alert(successMessage); // You can replace this with your preferred way of displaying the success message
+                alert(successMessage); 
             }
         </script>
         <div class="form-group">
@@ -48,5 +48,10 @@
             <p class="error-message"><%= errorMessage %></p>
         <% } %>
     </div>
+
+    <footer>
+        <div class="footer__bar">Copyright © 2023. All rights reserved.</div>
+    </footer>  
+
 </body>
 </html>

@@ -149,29 +149,28 @@ Rafel Sutra Dharma / 535220071 -->
 
   <div class="class__grid">
    
-<% classes.forEach(function(cls) { %>
-  <div class="class__card">
-    <!-- Informasi kelas -->
-    <h4><%= cls.title %></h4>
-    <p><%= cls.description %></p>
-    <img src="<%= cls.imageUrl %>" alt="class" />
+    <% classes.forEach(function(cls) { %>
+      <div class="class__card">
+        <!-- Informasi kelas -->
+        <h4><%= cls.title %></h4>
+        <p><%= cls.description %></p>
+        <img src="<%= cls.imageUrl %>" alt="class" />
+        
+        <!-- Tombol hapus kelas -->
+        <form action="/classes/<%= cls._id %>" method="POST">
+          <input type="hidden" name="_method" value="DELETE">
+          <% if (isAdmin) { %>
+            <button class="btn btn-delete" type="submit">Delete</button>
+          <% } %>
+        </form>
     
-    <!-- Tombol hapus kelas -->
-    <form action="/classes/<%= cls._id %>" method="POST">
-      <input type="hidden" name="_method" value="DELETE">
-      <% if (isAdmin) { %>
-          <button type="submit">Delete</button>
-      <% } %>
-  </form>
-
-  <% if (isAdmin) { %>
-    <a href="/admin_edit/<%= cls._id %>" class="btn btn-primary">Edit</a>
-  <% } %>
-  
-
-
-  </div>
-<% }); %>
+        <!-- Tombol edit kelas -->
+        <% if (isAdmin) { %>
+          <a href="/admin_edit/<%= cls._id %>" class="btn btn-edit">Edit</a>
+        <% } %>
+      </div>
+    <% }); %>
+    
 
   </div>
 </section>
