@@ -148,12 +148,21 @@ app.get("/profile", verifyToken, (req, res) => {
     });
 });
 
-
-
-
 app.get("/admin", (req, res) => {
     res.render("admin");
 });
+
+app.get("/admin_edit/:id", async (req, res) => {
+    try {
+        const classId = req.params.id;
+        const classData = await classes.findById(classId);
+        res.render("admin_edit", { cls: classData });
+    } catch (error) {
+        console.error("Error fetching class data for editing:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
 
 app.get("/cart", verifyToken, async (req, res) => {
     try {
@@ -169,6 +178,8 @@ app.get("/cart", verifyToken, async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 });
+
+
 
 //POST
 app.post('/plan', async (req, res) => {
@@ -192,14 +203,15 @@ app.post('/plan', async (req, res) => {
 
 //contact
 app.post("/contacts", async (req, res) => {
-    const { nama, phone } = req.body;
+    const { nama, phone, email } = req.body;
 
-    console.log(nama, phone);
+    console.log(nama, phone, email);
 
     try {
         const contactCon = new contact({
             nama: nama,
-            phone: phone
+            phone: phone,
+            email: email
         });
 
         await contactCon.save();
@@ -222,7 +234,23 @@ app.post("/contacts_edit/:id", (req, res, next) => {
         });
 });
 
-//plan
+// POST route untuk menangani permintaan edit kelas
+app.post("/admin_edit/:id", async (req, res) => {
+    try {
+        const classId = req.params.id;
+        const { title, description, imageUrl } = req.body;
+        // Perbarui detail kelas di database
+        await classes.findByIdAndUpdate(classId, { title, description, imageUrl });
+        res.redirect("/index");
+    } catch (error) {
+        console.error("Error updating class:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+
+
+
 //Admin - menambah kelas baru
 //menambah kelas baru
 app.post("/admin", async (req, res) => {
@@ -245,6 +273,8 @@ app.post("/admin", async (req, res) => {
         res.status(500).send("Error adding class");
     }
 });
+
+
 
 // Endpoint untuk menghapus kelas berdasarkan ID
 app.post("/classes/:id", async (req, res) => {

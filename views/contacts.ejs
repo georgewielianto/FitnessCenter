@@ -30,6 +30,11 @@
                 </div>
 
                 <div class="field">
+                    <label for="email" class="ui header green">Enter Your Email</label>
+                    <input type="text" name="email" required>
+                </div>
+
+                <div class="field">
                     <label for="phone" class="ui header green">Enter Your Phone Number</label>
                     <input type="tel" name="phone" pattern="[0-9]{12,}" title="Phone number must be at least 12 digits" required oninvalid="this.setCustomValidity('Phone number must be at least 12 digits')" oninput="this.setCustomValidity('')">
                 </div>
@@ -46,6 +51,7 @@
         <table class="ui green table">
             <thead>
                 <th>Name</th>
+                <th>Email</th>
                 <th>Phone Number</th>
                 <td>Edit</td>
                 <td>Delete</td>
@@ -55,8 +61,11 @@
               <% contacts.forEach ((contact)=>{ %>
                 <tr>
                   <td><%- contact.nama %></td>
+                  <td><%- contact.email %></td>
                   <td><%- contact.phone %></td>
-                  <td><a class="ui purple button" href="/contacts_edit/<%= contact._id %>" ><i class="edit outline icon"></i>Edit</a></td>
+                  <td>
+                    <a class="ui purple button" href="/contacts_edit/<%= contact._id %>" ><i class="edit outline icon"></i>Edit</a>
+                </td>
 
                   <td><a class="ui red button" href="/delete/<%= contact._id %>" ><i class="minus icon"></i>Delete</a></td>
                 </tr>

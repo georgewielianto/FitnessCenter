@@ -160,9 +160,16 @@ Rafel Sutra Dharma / 535220071 -->
     <form action="/classes/<%= cls._id %>" method="POST">
       <input type="hidden" name="_method" value="DELETE">
       <% if (isAdmin) { %>
-      <button type="submit">Delete</button>
+          <button type="submit">Delete</button>
       <% } %>
-    </form>
+  </form>
+
+  <% if (isAdmin) { %>
+    <a href="/admin_edit/<%= cls._id %>" class="btn btn-primary">Edit</a>
+  <% } %>
+  
+
+
   </div>
 <% }); %>
 

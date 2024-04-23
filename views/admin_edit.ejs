@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Class</title>
+    <!-- Tambahkan CSS atau tag lainnya di sini -->
+</head>
+<body>
+    <header>
+        <h1>Edit Class</h1>
+        <!-- Tambahkan elemen header lainnya di sini -->
+    </header>
+
+    <main>
+        <form action="/admin_edit/<%= cls._id %>" method="POST">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" value="<%= cls.title %>">
+            <label for="description">Description</label>
+            <textarea id="description" name="description"><%= cls.description %></textarea>
+            <label for="imageUrl">Image URL</label>
+            <input type="text" id="imageUrl" name="imageUrl" value="<%= cls.imageUrl %>">
+            <button type="submit">Save Changes</button>
+        </form>
+    </main>
+    
+
+    <footer>
+        <!-- Tambahkan elemen footer di sini -->
+    </footer>
+    <!-- Tambahkan script atau elemen lainnya di sini -->
+</body>
+</html>
