@@ -10,6 +10,7 @@ connect.then(() => {
     console.log("Database cant connect");
 });
 
+//MODELS
 const LoginSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -26,6 +27,7 @@ const LoginSchema = new mongoose.Schema({
     }
 });
 
+//MODELS
 const ContactShema = new mongoose.Schema({
     nama: {
         type: String,
@@ -42,6 +44,8 @@ const ContactShema = new mongoose.Schema({
     
 });
 
+
+//MODELS
 const ClassesSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -58,6 +62,8 @@ const ClassesSchema = new mongoose.Schema({
     
 });
 
+
+//MODELS
 const PlanSchema = new mongoose.Schema({
     plan: {
         type: String,
@@ -82,8 +88,8 @@ const classes = new mongoose.model("Classes", ClassesSchema);
 
 const plan = new mongoose.model("Plan", PlanSchema);
 
-// module.exports = collection;
 
+//EXPORT MODEL KE APLIKASI UTAMA
 module.exports = {
     collection,
     contact,

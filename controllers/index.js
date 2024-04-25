@@ -1,4 +1,5 @@
 // import module
+//EXPRESS SESION
 const express = require("express");
 const path = require("path");
 const bcrypt = require("bcrypt");
@@ -13,7 +14,7 @@ const methodOverride = require("method-override");
 
 const app = express();
 
-// Convert data ke format JSON
+//MIDDLEWARE
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
@@ -21,14 +22,14 @@ app.use(express.static("public"));
 app.use(cookieParser());
 app.use(methodOverride("_method")); 
 
-// Middleware sesi
+// SESSION MIDDLEWARE
 app.use(session({
     secret: 'secret-key', // Ganti dengan kunci rahasia yang lebih aman
     resave: false,
     saveUninitialized: true
 }));
 
-// Middleware untuk memverifikasi token JWT
+// JWT MIDDLEWARE
 const verifyToken = (req, res, next) => {
     const token = req.cookies.token; // Now req.cookies should be populated
     if (!token && req.path !== '/login') { // Tambahkan pengecualian untuk rute login
@@ -49,6 +50,7 @@ const verifyToken = (req, res, next) => {
 
 
 
+//ROUTING(GET&POST)
 //GET
 // Route untuk halaman utama
 app.get("/", verifyToken, (req, res) => {
@@ -338,7 +340,9 @@ app.post("/login", async (req, res) => {
 
         const isAdmin = user.admin || false;
         // Buat token JWT
-        const token = jwt.sign({ username: user.name, isAdmin: isAdmin }, "your_secret_key");
+        const token = jwt.sign({ username: user.name, isAdmin: isAdmin }, "your_secret_key", {
+            expiresIn: '1h'
+        });
 
         // Simpan token di cookie
         res.cookie("token", token, { httpOnly: true });
@@ -443,9 +447,7 @@ app.post("/profile/delete", verifyToken, async (req, res) => {
 });
 
 
-
-
-
+//SERVER INITIALIZATION
 const port = 5001;
 app.listen(port, () => {
     console.log(`Server running on port: ${port}`);
