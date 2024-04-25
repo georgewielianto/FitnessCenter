@@ -24,19 +24,19 @@ app.use(methodOverride("_method"));
 
 // SESSION MIDDLEWARE
 app.use(session({
-    secret: 'secret-key', // Ganti dengan kunci rahasia yang lebih aman
+    secret: 'secret-key', 
     resave: false,
     saveUninitialized: true
 }));
 
 // JWT MIDDLEWARE
 const verifyToken = (req, res, next) => {
-    const token = req.cookies.token; // Now req.cookies should be populated
-    if (!token && req.path !== '/login') { // Tambahkan pengecualian untuk rute login
+    const token = req.cookies.token; 
+    if (!token && req.path !== '/login') { 
         return res.status(401).send("Unauthorized");
     }
     try {
-        if (token) { // Hanya verifikasi token jika ada
+        if (token) { 
             // Verifikasi token
             const decoded = jwt.verify(token, "your_secret_key");
             req.user = decoded; // Simpan informasi pengguna yang di-decode dalam permintaan
@@ -57,15 +57,15 @@ app.get("/", verifyToken, (req, res) => {
     res.render("login", { errorMessage: "" });
 });
 
-// Assuming `classesData` contains the classes data fetched from your database
+
 app.get("/index", verifyToken, async (req, res) => {
     try {
-        const classesData = await classes.find(); // Fetch classes data from the database
+        const classesData = await classes.find(); 
         res.render("index", { 
             userName: req.user.username, 
             isAdmin: req.user.isAdmin,
             newUsername: req.session.newUsername,
-            classes: classesData // Pass the classes data to the template
+            classes: classesData 
         });
     } catch (error) {
         console.error('Error fetching classes:', error);
@@ -88,7 +88,7 @@ app.get("/signup", verifyToken, (req, res) => {
 // Route untuk halaman plan
 app.get('/plan', verifyToken, async (req, res) => {
     try {
-        // Ambil semua rencana dari database
+        // Ambil semua plan dari database
         const plans = await plan.find();
         res.render('plan', { plans });
     } catch (error) {
@@ -118,12 +118,10 @@ app.get("/contacts_edit/:id", (req, res, next) => {
                 res.render("contacts_edit", { contact: docs });
             } else {
                 console.log("Contact not found");
-                // Handle the case where the contact is not found
             }
         })
         .catch(err => {
             console.log("Error:", err);
-            // Handle other errors
             res.status(500).send("Internal Server Error");
         });
 });
@@ -146,7 +144,7 @@ app.get("/profile", verifyToken, (req, res) => {
     res.render("profile", { 
         userName: req.user ? req.user.username : "", 
         errorMessage: "",
-        newUsername: req.session.newUsername // Tambahkan newUsername ke dalam objek data
+        newUsername: req.session.newUsername 
     });
 });
 
@@ -171,10 +169,10 @@ app.get("/cart", verifyToken, async (req, res) => {
         // Ambil semua kontak dari database
         const contacts = await contact.find();
 
-        // Ambil semua rencana dari database
+        // Ambil semua plan dari database
         const plans = await plan.find();
 
-        res.render("cart", { req: req, contact: contacts, plans: plans }); // Render halaman cart.ejs dengan data kontak dan rencana
+        res.render("cart", { req: req, contact: contacts, plans: plans }); 
     } catch (error) {
         console.error("Error fetching contacts:", error);
         res.status(500).send("Internal Server Error");
@@ -186,16 +184,14 @@ app.get("/cart", verifyToken, async (req, res) => {
 //POST
 app.post('/plan', async (req, res) => {
     try {
-        // Ambil ID rencana yang dipilih dari body permintaan
+    
         const { planId } = req.body;
 
         // Temukan rencana berdasarkan ID
         const selectedPlan = await plan.findById(planId);
 
-        // Simpan detail rencana di sesi
         req.session.selectedPlan = selectedPlan;
 
-        // Redirect ke halaman cart
         res.redirect('/cart');
     } catch (error) {
         console.error('Error selecting plan:', error);
@@ -236,7 +232,7 @@ app.post("/contacts_edit/:id", (req, res, next) => {
         });
 });
 
-// POST route untuk menangani permintaan edit kelas
+// POST untuk edit classes melalui akun admin
 app.post("/admin_edit/:id", async (req, res) => {
     try {
         const classId = req.params.id;
@@ -253,8 +249,7 @@ app.post("/admin_edit/:id", async (req, res) => {
 
 
 
-//Admin - menambah kelas baru
-//menambah kelas baru
+//Admin - menambah Classes baru
 app.post("/admin", async (req, res) => {
     try {
         const { title, description, imageUrl } = req.body;
@@ -266,7 +261,7 @@ app.post("/admin", async (req, res) => {
             imageUrl: imageUrl
         });
 
-        // Simpan kelas ke dalam database
+        // Simpan Classes ke dalam database
         await newClass.save();
 
         res.status(201).send("Class added successfully");
@@ -278,7 +273,7 @@ app.post("/admin", async (req, res) => {
 
 
 
-// Endpoint untuk menghapus kelas berdasarkan ID
+// Endpoint untuk menghapus Classes berdasarkan ID
 app.post("/classes/:id", async (req, res) => {
     try {
         const deletedClass = await classes.findByIdAndDelete(req.params.id);
@@ -341,16 +336,15 @@ app.post("/login", async (req, res) => {
         const isAdmin = user.admin || false;
         // Buat token JWT
         const token = jwt.sign({ username: user.name, isAdmin: isAdmin }, "your_secret_key", {
+            //cookie expires dalam 1 jam
             expiresIn: '1h'
         });
 
         // Simpan token di cookie
         res.cookie("token", token, { httpOnly: true });
 
-        // Hapus newUsername dari sesi
         delete req.session.newUsername;
 
-        // Perbarui newUsername di sesi dengan username yang baru
         req.session.newUsername = user.name;
 
         res.redirect("index");
@@ -361,13 +355,12 @@ app.post("/login", async (req, res) => {
 });
 
 
-// Endpoint untuk memperbarui nama pengguna
+// Endpoint untuk memperbarui nama user
 app.post("/profile/update-name", verifyToken, async (req, res) => {
     try {
         const { newName } = req.body;
         const username = req.user.username;
 
-        // Check if the new username already exists in the database
         const existingUser = await collection.findOne({ name: newName });
         if (existingUser) {
             return res.render("profile", { 
@@ -377,10 +370,8 @@ app.post("/profile/update-name", verifyToken, async (req, res) => {
             });
         }
 
-        // Continue with updating the username if the new username doesn't exist
         await collection.updateOne({ name: username }, { $set: { name: newName } });
 
-        // Save the new username in the session
         req.session.newUsername = newName;
 
         res.render("profile", { 
@@ -399,7 +390,7 @@ app.post("/profile/update-name", verifyToken, async (req, res) => {
 
 
 
-// Endpoint untuk memperbarui kata sandi pengguna
+// Endpoint untuk memperbarui kata sandi User
 app.post("/profile/update-password", verifyToken, async (req, res) => {
     try {
         const { newPassword } = req.body;

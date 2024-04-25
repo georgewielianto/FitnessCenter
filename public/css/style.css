@@ -662,14 +662,14 @@ nav {
   color: #333;
   font-weight: bold;
   cursor: pointer;
-  margin-right: 10px; /* Jarak antara username dan link lainnya */
+  margin-right: 10px; 
 }
 
 .profile-link,
 .logout-link {
   color: #333;
   text-decoration: none;
-  margin-right: 10px; /* Jarak antara link-edit dan link-logout */
+  margin-right: 10px; 
 }
 
 .profile-link:hover,
@@ -678,8 +678,8 @@ nav {
 }
 
 .btn {
-  padding: 8px 12px; /* Sesuaikan padding */
-  margin-right: 5px; /* Menambahkan margin kanan untuk pemisahan */
+  padding: 8px 12px; 
+  margin-right: 5px; 
   border: none;
   border-radius: 4px;
   cursor: pointer;

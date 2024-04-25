@@ -14,7 +14,7 @@ document.querySelectorAll('.btn').forEach(button => {
     button.addEventListener('click', function() {
         var planName = this.closest('.product-details').querySelector('.plan').textContent;
         var planPrice = this.closest('.product-details').querySelector('.price').textContent;
-        var price = parseFloat(planPrice.split(' ')[1].replace(',', '.')); // Ambil harga dari teks, ubah ke tipe float
+        var price = parseFloat(planPrice.split(' ')[1].replace(',', '.')); 
         var quantity = this.closest('.product-details').querySelector('#quantity').value;
         var total = price * quantity;
 

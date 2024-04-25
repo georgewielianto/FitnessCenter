@@ -5,7 +5,6 @@
     box-sizing: border-box;
 }
 
-/* Body styles */
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #f0f2f5;
@@ -15,27 +14,24 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    justify-content: center; /* Center content vertically */
+    justify-content: center; 
 }
 
-/* Container styles */
 .container {
     max-width: 500px;
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    margin: 0 auto; /* Center horizontally */
+    margin: 0 auto; 
 }
 
-/* Header styles */
 .container h2 {
     margin-bottom: 20px;
     text-align: center;
     color: #333;
 }
 
-/* Button styles */
 button {
     display: inline-block;
     padding: 10px 20px;
@@ -51,7 +47,6 @@ button:hover {
     background-color: #0056b3;
 }
 
-/* Form styles */
 .form-group {
     margin-bottom: 20px;
 }
@@ -70,11 +65,10 @@ input[type="password"] {
     border: 1px solid #ccc;
 }
 
-/* Footer styles */
 .footer__bar {
     padding: 10px;
     font-size: 0.8rem;
     color: #666;
     text-align: center;
-    margin-top: auto; /* Pushes footer to the bottom */
+    margin-top: auto; 
 }

@@ -99,11 +99,11 @@ module.exports = {
 
 
 
-// Simpan rencana-rencana hanya jika belum ada di database
+// Simpan Plans Ke database
 plan.findOneAndUpdate(
-    { plan: "Basic Plan" }, // Kriteria pencarian
-    { $setOnInsert: { plan: "Basic Plan", price: 150000, quantity: 1 } }, // Data yang akan disimpan jika dokumen tidak ditemukan
-    { upsert: true } // Opsi upsert
+    { plan: "Basic Plan" }, 
+    { $setOnInsert: { plan: "Basic Plan", price: 150000, quantity: 1 } }, 
+    { upsert: true } 
 )
 .then(savedPlan => {
     console.log('Rencana berhasil disimpan:', savedPlan);
@@ -113,9 +113,9 @@ plan.findOneAndUpdate(
 });
 
 plan.findOneAndUpdate(
-    { plan: "Weekly Plan" }, // Kriteria pencarian
-    { $setOnInsert: { plan: "Weekly Plan", price: 300000, quantity: 1 } }, // Data yang akan disimpan jika dokumen tidak ditemukan
-    { upsert: true } // Opsi upsert
+    { plan: "Weekly Plan" }, 
+    { $setOnInsert: { plan: "Weekly Plan", price: 300000, quantity: 1 } }, 
+    { upsert: true } 
 )
 .then(savedPlan => {
     console.log('Rencana berhasil disimpan:', savedPlan);
@@ -125,9 +125,9 @@ plan.findOneAndUpdate(
 });
 
 plan.findOneAndUpdate(
-    { plan: "Monthly Plan" }, // Kriteria pencarian
-    { $setOnInsert: { plan: "Monthly Plan", price: 450000, quantity: 1 } }, // Data yang akan disimpan jika dokumen tidak ditemukan
-    { upsert: true } // Opsi upsert
+    { plan: "Monthly Plan" }, 
+    { $setOnInsert: { plan: "Monthly Plan", price: 450000, quantity: 1 } }, 
+    { upsert: true } 
 )
 .then(savedPlan => {
     console.log('Rencana berhasil disimpan:', savedPlan);

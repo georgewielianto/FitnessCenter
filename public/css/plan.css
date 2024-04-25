@@ -102,8 +102,8 @@ body {
 }
 
 .logo {
-    max-width: 150px; /* Menyesuaikan ukuran logo */
+    max-width: 150px; 
     height: auto;
-    display: block; /* Untuk membuat gambar berada di tengah */
-    margin: 0 auto; /* Untuk membuat gambar berada di tengah */
+    display: block; 
+    margin: 0 auto; 
 }

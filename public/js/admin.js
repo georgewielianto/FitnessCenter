@@ -29,7 +29,6 @@ document.addEventListener("DOMContentLoaded", function() {
         addClassForm.appendChild(successMessage);
       } else {
         console.error("Failed to add class.");
-        // Handle error jika ada
       }
     })
     .catch(error => {
