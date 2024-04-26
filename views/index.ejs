@@ -185,98 +185,30 @@ Rafel Sutra Dharma / 535220071 -->
         are equipped to tailor workout programs to meet your unique needs.
       </p>
       <div class="trainer__grid">
+        <% trainers.forEach(function(trainers) { %>
+        
         <div class="trainer__card">
-          <img src="assets/trainer-1.jpg" alt="trainer" />
+
+        <h4><%= trainers.trainerName %></h4>
+        <p><%= trainers.trainerDesc %></p>
+        <img src="<%= trainers.trainerImg %>" alt="class" />
+
+         <!-- Tombol hapus trainer -->
+         <form action="/trainers/<%= trainers._id %>" method="POST">
+          <input type="hidden" name="_method" value="DELETE">
+          <% if (isAdmin) { %>
+            <button class="btn btn-delete" type="submit">Delete</button>
+          <% } %>
+        </form>
+
+        <% if (isAdmin) { %>
+          <a href="/trainer_edit/<%= trainers._id %>" class="btn btn-edit">Edit</a>
+        <% } %>
+        
         </div>
-        <div class="trainer__card">
-          <div class="trainer__content">
-            <h4>Deddy Corbuzier</h4>
-            <h5>Strength and Conditioning</h5>
-            <hr />
-            <p>
-              With a background in competitive sports, he's dedicated to helping
-              you reach your peak physical performance.
-            </p>
-            <div class="trainer__socials">
-              <a href="https://www.facebook.com/mastercorbuzier" target="_blank"
-                ><i class="ri-facebook-fill"></i
-              ></a>
-              <a
-                href="https://en.wikipedia.org/wiki/Deddy_Corbuzier"
-                target="_blank"
-                ><i class="ri-google-fill"></i
-              ></a>
-              <a
-                href="https://www.instagram.com/mastercorbuzier/"
-                target="_blank"
-                ><i class="ri-instagram-line"></i
-              ></a>
-              <a href="https://twitter.com/corbuzier" target="_blank"
-                ><i class="ri-twitter-fill"></i
-              ></a>
-            </div>
-          </div>
-        </div>
-        <div class="trainer__card">
-          <img src="assets/trainer-2.jpg" alt="trainer" />
-        </div>
-        <div class="trainer__card">
-          <div class="trainer__content">
-            <h4>Ade Rai</h4>
-            <h5>HIIT and Functional</h5>
-            <hr />
-            <p>
-              His energetic and dynamic workouts are designed to push your
-              limits, boost metabolism, and torch calories.
-            </p>
-            <div class="trainer__socials">
-              <a
-                href="https://www.facebook.com/profile.php?id=61555960751468"
-                target="_blank"
-                ><i class="ri-facebook-fill"></i
-              ></a>
-              <a href="https://id.wikipedia.org/wiki/Ade_Rai" target="_blank"
-                ><i class="ri-google-fill"></i
-              ></a>
-              <a href="https://www.instagram.com/ade_rai/" target="_blank"
-                ><i class="ri-instagram-line"></i
-              ></a>
-              <a href="https://twitter.com/CerdasFitness" target="_blank"
-                ><i class="ri-twitter-fill"></i
-              ></a>
-            </div>
-          </div>
-        </div>
-        <div class="trainer__card">
-          <img src="assets/trainer-3.jpg" alt="trainer" />
-        </div>
-        <div class="trainer__card">
-          <div class="trainer__content">
-            <h4>Sisil</h4>
-            <h5>Yoga and Mindfulness</h5>
-            <hr />
-            <p>
-              Sisil's sessions are about physical postures and also about
-              cultivating inner peace and mindfulness.
-            </p>
-            <div class="trainer__socials">
-              <a href="https://www.facebook.com/MVMariaVania" target="_blank"
-                ><i class="ri-facebook-fill"></i
-              ></a>
-              <a
-                href="https://id.wikipedia.org/wiki/Maria_Vania"
-                target="_blank"
-                ><i class="ri-google-fill"></i
-              ></a>
-              <a href="https://www.instagram.com/maria_vaniaa/" target="_blank"
-                ><i class="ri-instagram-line"></i
-              ></a>
-              <a href="https://twitter.com/Maria_Vaniaa" target="_blank"
-                ><i class="ri-twitter-fill"></i
-              ></a>
-            </div>
-          </div>
-        </div>
+
+        <% }); %>
+
       </div>
     </section>
 

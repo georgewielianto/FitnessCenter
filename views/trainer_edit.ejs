@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Edit Trainer</title>
+    <link rel="stylesheet" href="/css/admin_edit.css">
+    <link rel="stylesheet" type="image/x-icon" href="assets/logo.jpg">
+  
+</head>
+<body>
+    <header>
+        <h1>Edit Trainer</h1>
+        
+    </header>
+
+    <main>
+        <form action="/trainer_edit/<%= trainers._id %>" method="POST">
+            <label for="title">Trainer Name</label>
+            <input type="text" id="trainerName" name="trainerName" value="<%= trainers.trainerName %>">
+            <label for="description">Description</label>
+            <textarea id="trainerDesc" name="trainerDesc"><%= trainers.trainerDesc %></textarea>
+            <label for="trainerImg">Trainer Image</label>
+            <input type="text" id="trainerImg" name="trainerImg" value="<%= trainers.trainerImg %>">
+            <button type="submit">Save Changes</button>
+        </form>
+        
+        <a href="/index" class="back-button">Back</a>
+
+    </main>
+</body>
+</html>

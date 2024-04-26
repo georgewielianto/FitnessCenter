@@ -79,6 +79,24 @@ const PlanSchema = new mongoose.Schema({
     }
 })
 
+//MODELS
+const TrainersSchema = new mongoose.Schema({
+    trainerName:{
+        type: String,
+        required: true,
+    },
+
+    trainerImg:{
+        type: String,
+        required:true
+    },
+
+    trainerDesc:{
+        type: String,
+        required:true,
+    }
+});
+
 
 const collection = new mongoose.model("Users", LoginSchema);
 
@@ -88,13 +106,16 @@ const classes = new mongoose.model("Classes", ClassesSchema);
 
 const plan = new mongoose.model("Plan", PlanSchema);
 
+const trainers = new mongoose.model("Trainers", TrainersSchema);
+
 
 //EXPORT MODEL KE APLIKASI UTAMA
 module.exports = {
     collection,
     contact,
     classes,
-    plan
+    plan,
+    trainers
 };
 
 

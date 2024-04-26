@@ -3,7 +3,7 @@
 const express = require("express");
 const path = require("path");
 const bcrypt = require("bcrypt");
-const { collection, contact, classes, plan } = require("../utils/config");
+const { collection, contact, classes, plan, trainers } = require("../utils/config");
 const bodyParser = require("body-parser");
 const session = require('express-session');
 const jwt = require("jsonwebtoken");
@@ -61,11 +61,13 @@ app.get("/", verifyToken, (req, res) => {
 app.get("/index", verifyToken, async (req, res) => {
     try {
         const classesData = await classes.find(); 
+        const trainersData = await trainers.find();
         res.render("index", { 
             userName: req.user.username, 
             isAdmin: req.user.isAdmin,
             newUsername: req.session.newUsername,
-            classes: classesData 
+            classes: classesData,
+            trainers: trainersData
         });
     } catch (error) {
         console.error('Error fetching classes:', error);
@@ -163,6 +165,17 @@ app.get("/admin_edit/:id", async (req, res) => {
     }
 });
 
+app.get("/trainer_edit/:id", async (req, res) => {
+    try {
+        const trainerId = req.params.id;
+        const trainerData = await trainers.findById(trainerId);
+        res.render("trainer_edit", { trainers: trainerData });
+    } catch (error) {
+        console.error("Error fetching class data for editing:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
 
 app.get("/cart", verifyToken, async (req, res) => {
     try {
@@ -252,24 +265,46 @@ app.post("/admin_edit/:id", async (req, res) => {
 //Admin - menambah Classes baru
 app.post("/admin", async (req, res) => {
     try {
-        const { title, description, imageUrl } = req.body;
+        // Periksa apakah data yang diterima adalah untuk menambah kelas atau trainer
+        const { title, description, imageUrl, trainerName, trainerDesc, trainerImg } = req.body;
 
-        // Buat instance kelas baru menggunakan model Classes
-        const newClass = new classes({
-            title: title,
-            description: description,
-            imageUrl: imageUrl
-        });
+        // Jika data yang diterima berisi informasi tentang kelas (title, description, imageUrl)
+        if (title && description && imageUrl) {
+            // Buat instance kelas baru menggunakan model Classes
+            const newClass = new classes({
+                title: title,
+                description: description,
+                imageUrl: imageUrl
+            });
 
-        // Simpan Classes ke dalam database
-        await newClass.save();
+            // Simpan kelas ke dalam database
+            await newClass.save();
 
-        res.status(201).send("Class added successfully");
+            res.status(201).send("Class added successfully");
+        } 
+        // Jika data yang diterima berisi informasi tentang trainer (trainerName, trainerDesc, trainerImg)
+        else if (trainerName && trainerDesc && trainerImg) {
+            // Buat instance trainer baru menggunakan model Trainers
+            const newTrainer = new trainers({
+                trainerName: trainerName,
+                trainerDesc: trainerDesc,
+                trainerImg: trainerImg
+            });
+
+            // Simpan trainer ke dalam database
+            await newTrainer.save();
+
+            res.status(201).send("Trainer added successfully");
+        } else {
+            // Jika data yang diterima tidak sesuai format
+            res.status(400).send("Bad Request: Invalid data format");
+        }
     } catch (error) {
-        console.error("Error adding class:", error);
-        res.status(500).send("Error adding class");
+        console.error("Error adding data:", error);
+        res.status(500).send("Error adding data");
     }
 });
+
 
 
 
@@ -286,6 +321,35 @@ app.post("/classes/:id", async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 });
+
+//Delete trainer
+app.post("/trainers/:id", async (req, res) => {
+    try {
+        const deletedClass = await trainers.findByIdAndDelete(req.params.id);
+        if (!deletedClass) {
+            return res.status(404).send("Class not found");
+        }
+        res.redirect("/index?successMessage=Classes%20successfully%20deleted");
+    } catch (error) {
+        console.error("Error deleting class:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+//POST Edit trainer
+app.post("/trainer_edit/:id", async (req, res) => {
+    try {
+        const trainerId = req.params.id;
+        const { trainerName, trainerDesc, trainerImg } = req.body;
+        // Perbarui detail kelas di database
+        await trainers.findByIdAndUpdate(trainerId, { trainerName, trainerDesc, trainerImg });
+        res.redirect("/index");
+    } catch (error) {
+        console.error("Error updating class:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
 
 
 
@@ -336,8 +400,8 @@ app.post("/login", async (req, res) => {
         const isAdmin = user.admin || false;
         // Buat token JWT
         const token = jwt.sign({ username: user.name, isAdmin: isAdmin }, "your_secret_key", {
-            //cookie expires dalam 1 jam
-            expiresIn: '1h'
+            //cookie expires
+            expiresIn: '30d'
         });
 
         // Simpan token di cookie

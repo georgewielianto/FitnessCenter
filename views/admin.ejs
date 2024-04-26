@@ -4,18 +4,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard - Add Class</title>
+  <title>Admin Dashboard</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-mho+r/7ZfBXbKPiEwzHU5fck/xwOgs3UNPcx1YEEVh3Cgcg11f2Z3rQ1IVnflwgfABJFoYz3PzL4F5x6s3XiMA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   
   <link rel="stylesheet" href="css/admin.css">
   <link rel="icon" type="image/x-icon" href="assets/logo.jpg" />
 </head>
 <body>
+
+  <h1>ADMIN DASHBOARD</h1>
+
   <div class="container">
-    <h1>Add New Class</h1>
+    <h2>Add New Class</h2>
     <div class="back-button">
       <a href="/index"><button>Back</button></a>
-  </div>
+    </div>
+  
     <form id="addClassForm">
       <div class="form-group">
         <label for="title">Class Title</label>
@@ -32,6 +36,28 @@
       <button type="submit" class="btn">Add Class</button>
     </form>
   </div>
+
+
+  <div class="container">
+    <h2>Add New Trainer</h2>
+  
+    <form id="addTrainerForm"> <!-- Ubah id menjadi addTrainerForm -->
+      <div class="form-group">
+        <label for="trainerName">Trainer Name</label>
+        <input type="text" id="trainerName" name="trainerName" required>
+      </div>
+      <div class="form-group">
+        <label for="trainerDesc">Description</label>
+        <textarea id="trainerDesc" name="trainerDesc" rows="4" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="trainerImg">Image URL</label>
+        <input type="text" id="trainerImg" name="trainerImg" required>
+      </div>
+      <button type="submit" class="btn">Add Trainer</button>
+    </form>
+  </div>
+  
 
   <script src="js/admin.js"></script>
 </body>
