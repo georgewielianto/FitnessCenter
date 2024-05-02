@@ -246,6 +246,7 @@ nav {
   flex-direction: column;
   cursor: pointer;
   transition: 0.3s;
+  flex: 1;
 }
 
 .class__card .class__bg {
@@ -279,70 +280,129 @@ nav {
   font-weight: 500;
 }
 
-.trainer__container :is(.section__header, .section__description) {
-  width: fit-content;
-  margin-inline: auto;
-  text-align: center;
+.class__card img {
+  max-width: 100%; 
+  align-self: center; 
 }
 
-.trainer__container .section__header::after {
-  left: 50%;
-  transform: translateX(-50%);
+.class__card h4,
+.class__card p {
+  flex-grow: 1;
+  padding: 0 1rem;
+}
+
+.class__card p {
+  text-align: justify; 
+}
+
+
+.class__card form,
+.class__card a {
+  margin-top: auto;
+}
+
+.class__card .btn {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.class__card .btn-delete {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+}
+
+.class__card .btn-edit {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+}
+
+.class__card .btn:hover {
+  filter: brightness(90%);
+}
+
+
+.trainer__container {
+  margin-top: 4rem;
 }
 
 .trainer__grid {
-  margin-top: 4rem;
   display: grid;
-  align-items: center;
+  gap: 2rem;
+  justify-content: center;
 }
 
 .trainer__card {
-  height: 100%;
-  display: grid;
+  position: relative;
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  text-align: center;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.trainer__card:hover {
+  transform: translateY(-5px);
 }
 
 .trainer__card img {
-  height: 100%;
+  width: 150px;
+  height: 150px;
   object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.trainer__content {
-  padding: 2rem 1rem;
-}
-
-.trainer__content h4 {
-  font-size: 1.2rem;
+.trainer__card h4 {
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
   font-weight: 600;
   color: var(--text-dark);
 }
 
-.trainer__content h5 {
-  margin-bottom: 1rem;
-  font-size: 1rem;
-  font-weight: 500;
+.trainer__card p {
+  margin-bottom: 1.5rem;
   color: var(--text-light);
+  text-align: justify; 
+
 }
 
-.trainer__content p {
-  margin-block: 1rem;
-  color: var(--text-light);
+.trainer__card form,
+.trainer__card a {
+  margin-top: auto;
 }
 
-.trainer__socials {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+/* Button styles */
+.trainer__card .btn {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.trainer__socials a {
-  font-size: 1.2rem;
-  color: var(--text-light);
+.trainer__card .btn-delete {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
 }
 
-.trainer__socials a:hover {
-  color: var(--primary-color);
+.trainer__card .btn-edit {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
 }
+
+.trainer__card .btn:hover {
+  filter: brightness(90%);
+}
+
 
 .price__container :is(.section__header, .section__description) {
   width: fit-content;
