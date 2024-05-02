@@ -291,7 +291,6 @@ app.post("/admin", async (req, res) => {
                 trainerImg: trainerImg
             });
 
-            // Simpan trainer ke dalam database
             await newTrainer.save();
 
             res.status(201).send("Trainer added successfully");
@@ -329,7 +328,7 @@ app.post("/trainers/:id", async (req, res) => {
         if (!deletedClass) {
             return res.status(404).send("Class not found");
         }
-        res.redirect("/index?successMessage=Classes%20successfully%20deleted");
+        res.redirect("/index?successMessage=Trainer%20successfully%20deleted");
     } catch (error) {
         console.error("Error deleting class:", error);
         res.status(500).send("Internal Server Error");
