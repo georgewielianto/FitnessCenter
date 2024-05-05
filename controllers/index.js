@@ -83,7 +83,7 @@ app.get("/login", verifyToken, (req, res) => {
 });
 
 // Route untuk halaman signup
-app.get("/signup", verifyToken, (req, res) => {
+app.get("/signup", (req, res) => {
     res.render("signup", { errorMessage: "" });
 });
 
